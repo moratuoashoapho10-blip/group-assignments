@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Attractions — DiscoverLesotho</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .filter-btn {
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      border: 2px solid var(--green);
+      background: transparent;
+      color: var(--green);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .attraction-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .attraction-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .attraction-img {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.75);
+      font-style: italic;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .attraction-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .attraction-type {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.5);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      backdrop-filter: blur(4px);
+    }
+
+    .attraction-body {
+      padding: 1.5rem;
+    }
+
+    .attraction-body h3 {
+      color: var(--green-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .attraction-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.82rem;
+      color: #aaa;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .rating {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .featured-attraction {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 3rem;
+    }
+
+    .featured-attraction-img {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.75);
+      font-style: italic;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 2rem;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-attraction-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .featured-attraction-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-attraction-body h2 {
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+    }
+
+    .info-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+
+    .info-tag {
+      background: var(--cream);
+      color: var(--gray);
+      font-size: 0.8rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-label h3 {
+      color: var(--green-dark);
+      white-space: nowrap;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+    }
+
+    @media (max-width: 860px) {
+      .featured-attraction {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-attraction-img { min-height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <div class="nav-logo">Discover<span>Lesotho</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html">Travel Stories</a></li>
+      <li><a href="attractions.html" class="active">Top Attractions</a></li>
+      <li><a href="tips.html">Travel Tips</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> <span>›</span> <span>Top Attractions</span>
+    </div>
+    <h1>Top Attractions</h1>
+    <p>From dramatic waterfalls and ancient heritage sites to world-class skiing — Lesotho's attractions are unlike anywhere else in Africa.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <button class="filter-btn active">All Attractions</button>
+      <button class="filter-btn"> Natural</button>
+      <button class="filter-btn"> Cultural &amp; Heritage</button>
+      <button class="filter-btn">Adventure</button>
+    </div>
+
+    <!-- FEATURED ATTRACTION -->
+    <div class="featured-attraction">
+      <div class="featured-attraction-img">
+        <img src="5.jpg" alt="Maletsunyane Falls">
+      </div>
+      <div class="featured-attraction-body">
+        <span class="card-tag"> Must-See</span>
+        <h2>Maletsunyane Falls</h2>
+        <p>Plunging 192 metres into a dramatic basalt gorge, Maletsunyane Falls is one of Africa's highest single-drop waterfalls. Located near the village of Semonkong ("Place of Smoke"), the falls are most spectacular during the summer rainy season.</p>
+        <p>Adventurous visitors can attempt the world's longest commercially operated single-drop abseil right alongside the falls — a 204-metre vertical drop not for the faint-hearted!</p>
+        <div class="info-tags">
+          <span class="info-tag"> Semonkong District</span>
+          <span class="info-tag"> Natural Wonder</span>
+          <span class="info-tag"> 4.9/5</span>
+          <span class="info-tag"> All Skill Levels</span>
+        </div>
+        <a href="tips.html" class="btn btn-green">Plan Your Visit</a>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <h3> Natural Attractions</h3>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:3rem;">
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="4.jpg" alt="Sehlabathebe National Park">
+          <span class="attraction-type"> Natural</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Sehlabathebe National Park</h3>
+          <div class="attraction-meta">
+            <span> Eastern Highlands</span>
+            <span class="rating"> 4.7</span>
+          </div>
+          <p>Lesotho's first and only national park, Sehlabathebe is a UNESCO World Heritage Site. Its high-altitude wetlands, rare wildlife, and stunning rock formations make it a paradise for hikers and birdwatchers. The park is home to the endangered bearded vulture and the rare spiral aloe.</p>
+          <div class="info-tags">
+            <span class="info-tag"> Birdwatching</span>
+            <span class="info-tag"> Hiking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="7.jpg" alt="Katse Dam">
+          <span class="attraction-type"> Natural</span>
+        </div>
+          <div class="attraction-meta">
+            <span>Thaba-Tseka District</span>
+            <span class="rating"> 4.6</span>
+          </div>
+          <p>Part of the massive Lesotho Highlands Water Project, Katse Dam is an engineering marvel — a double-curvature arch dam standing 185 metres tall. The surrounding reservoir is surrounded by dramatic mountain scenery and offers boat tours. Visitors can tour the dam wall and visitor centre.</p>
+          <div class="info-tags">
+            <span class="info-tag"> Boat Tours</span>
+            <span class="info-tag">Photography</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="1.jpg" alt="Ts'ehlanyane National Park">
+          <span class="attraction-type"> Natural</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Ts'ehlanyane National Park</h3>
+          <div class="attraction-meta">
+            <span> Butha-Buthe</span>
+            <span class="rating">4.5</span>
+          </div>
+          <p>Home to Lesotho's only remaining indigenous forest, Ts'ehlanyane is a pocket of lush mountain wilderness. The Maliba Lodge within the park is one of Lesotho's most luxurious eco-retreats, perched dramatically above the Ts'ehlanyane River with breathtaking gorge views.</p>
+          <div class="info-tags">
+            <span class="info-tag"> Eco-Tourism</span>
+            <span class="info-tag"> Camping</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-label">
+      <h3>Cultural &amp; Heritage Sites</h3>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:3rem;">
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="8.jpg" alt="Thaba Bosiu">
+          <span class="attraction-type"> Heritage</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Thaba Bosiu</h3>
+          <div class="attraction-meta">
+            <span>Maseru District</span>
+            <span class="rating">⭐ 4.8</span>
+          </div>
+          <p>The "Mountain at Night" is the spiritual and historical birthplace of the Basotho nation. King Moshoeshoe I used this fortress plateau to resist invasion throughout the 19th century. Guided tours lead visitors to royal graves, defensive walls, and panoramic highland views.</p>
+          <div class="info-tags">
+            <span class="info-tag"> Fortress</span>
+            <span class="info-tag"> History</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="3.jpg" alt="Ha Kome Cave Houses">
+          <span class="attraction-type"> Heritage</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Ha Kome Cave Houses</h3>
+          <div class="attraction-meta">
+            <span>Berea District</span>
+            <span class="rating"> 4.6</span>
+          </div>
+          <p>These extraordinary cave dwellings were carved directly into cliff faces during the turbulent Difaqane wars. Entire families sheltered inside these natural caves for generations. Today they remain inhabited, giving visitors a remarkable window into ancient Basotho survival and ingenuity.</p>
+          <div class="info-tags">
+            <span class="info-tag">Cave Art</span>
+            <span class="info-tag"> Community</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="museum.jpg" alt="Morija Museum">
+          <span class="attraction-type"> Heritage</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Morija Museum &amp; Archives</h3>
+          <div class="attraction-meta">
+            <span> Morija Town</span>
+            <span class="rating"> 4.4</span>
+          </div>
+          <p>The oldest institution in Lesotho, Morija Museum houses a remarkable collection of Basotho history, archaeology, and natural heritage. Morija also hosts the famous annual Morija Arts &amp; Cultural Festival — a celebration of music, literature, and traditional performance arts.</p>
+          <div class="info-tags">
+            <span class="info-tag"> Arts</span>
+            <span class="info-tag"> Museum</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-label">
+      <h3>Adventure Tourism</h3>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="10.jpg" alt="Afriski Mountain Resort">
+          <span class="attraction-type">Adventure</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Afriski Mountain Resort</h3>
+          <div class="attraction-meta">
+            <span>Butha-Buthe District</span>
+            <span class="rating">4.8</span>
+          </div>
+          <p>Africa's highest and most celebrated ski resort sits at 3,222 metres in the Maluti Mountains. From June to August, the slopes are blanketed in snow and thronged with skiers. Off-season, Afriski transforms into a mountain biking and hiking paradise with spectacular summit views.</p>
+          <div class="info-tags">
+            <span class="info-tag">Skiing</span>
+            <span class="info-tag"> Biking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="11.jpg" alt="Basotho Pony Trekking">
+          <span class="attraction-type"> Adventure</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Basotho Pony Trekking</h3>
+          <div class="attraction-meta">
+            <span>Malealea, Semonkong</span>
+            <span class="rating">4.9</span>
+          </div>
+          <p>The Basotho pony is as iconic as the country itself. Guided multi-day treks take riders through remote mountain passes, crossing rivers and stopping at traditional villages inaccessible by vehicle. Single-day rides are also available from Malealea and Semonkong lodges.</p>
+          <div class="info-tags">
+            <span class="info-tag"> Horse Riding</span>
+            <span class="info-tag"> Overnight</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="attraction-card">
+        <div class="attraction-img">
+          <img src="abseil.jpg" alt="Semonkong Abseil">
+          <span class="attraction-type">Adventure</span>
+        </div>
+        <div class="attraction-body">
+          <h3>Semonkong Abseil</h3>
+          <div class="attraction-meta">
+            <span> Semonkong</span>
+            <span class="rating"> 4.7</span>
+          </div>
+          <p>The world's longest commercially operated single-drop abseil drops 204 metres alongside Maletsunyane Falls. It's a bucket-list experience that takes roughly 20 minutes to complete and rewards participants with a waterfall view unlike anything else on Earth. Safety briefings are thorough and professional.</p>
+          <div class="info-tags">
+            <span class="info-tag"> Abseiling</span>
+            <span class="info-tag">Thrill-Seeker</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">Discover<span>Lesotho</span></div>
+      <p>Your ultimate guide to exploring the Kingdom in the Sky.</p>
+      <div class="social-links">
+        <a href="gallery.html#social" class="social-link">f</a>
+        <a href="gallery.html#social" class="social-link">ig</a>
+        <a href="gallery.html#social" class="social-link">tw</a>
+        <a href="gallery.html#social" class="social-link">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Travel Stories</a></li>
+        <li><a href="attractions.html">Top Attractions</a></li>
+        <li><a href="tips.html">Travel Tips</a></li>
+        <li><a href="gallery.html">Gallery &amp; Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Popular Attractions</h4>
+      <ul>
+        <li><a href="#">Maletsunyane Falls</a></li>
+        <li><a href="#">Afriski Mountain Resort</a></li>
+        <li><a href="#">Thaba Bosiu</a></li>
+        <li><a href="#">Katse Dam</a></li>
+        <li><a href="#">Ha Kome Cave Houses</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <ul>
+        <li> Maseru, Lesotho</li>
+        <li>info@discoverlesotho.ls</li>
+        <li> +266 57838590</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 DiscoverLesotho. Web Design for Business — Limkokwing University of Creative Technology, Lesotho.</p>
+  </div>
+</footer>
+
+</body>
+</html>

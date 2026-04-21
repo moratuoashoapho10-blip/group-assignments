@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discover Lesotho — Kingdom in the Sky</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    .about-img-wrap {
+      position: relative;
+      background-size: cover;
+    }
+
+    .about-img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      display: block;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      height: 460px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+      font-style: italic;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 3px solid var(--gold);
+    }
+
+    .about-badge strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .about-badge small {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .about-text h2 { color: var(--green-dark); margin-bottom: 1.2rem; }
+
+    .about-text .highlight-text {
+      font-size: 1.1rem;
+      color: var(--green);
+      font-weight: 600;
+      border-left: 4px solid var(--gold);
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+
+    .features-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .features-list li {
+      padding: 0.5rem 0;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .highlight-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .highlight-card-img {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .highlight-card-body {
+      padding: 1.5rem;
+      border-top: 3px solid var(--gold);
+    }
+
+    .highlight-card-body h3 {
+      color: var(--green-dark);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <div class="nav-logo">Discover<span>Lesotho</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="blog.html">Travel Stories</a></li>
+      <li><a href="tips.html">Travel Tips</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"> <h1>Africa's Best Kept Secret</h1></div>
+<h1>Welcome to the<br><em>Kingdom in the Sky</em></h1>
+<p>Explore the mountains of Lesotho, experience Basotho culture, and enjoy unique adventures across the country.</p>    <div class="hero-ctas">
+      <a href="attractions.html" class="btn btn-primary">Explore Attractions</a>
+      <a href="blog.html" class="btn btn-primary">Read Travel Stories</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="stat-item"><span>3,482m</span><small>Highest Peak</small></div>
+    <div class="stat-item"><span>300+</span><small>Sunny Days</small></div>
+    <div class="stat-item"><span>2.2M</span><small>Warm People</small></div>
+    <div class="stat-item"><span>100%</span><small>Authentic</small></div>
+  </div>
+</section>
+
+<div class="intro-strip">
+  <div class="container">
+    <p>The only country in the world entirely above 1,000 metres. Lesotho is truly a kingdom above the clouds.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img src="1.jpg" alt="Lesotho highlands" class="about-img">
+        <div class="about-badge">
+          <strong>1966</strong>
+          <small>Year of Independence</small>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <h2>About Lesotho</h2>
+        <p class="highlight-text">"The Mountain Kingdom — where every road leads to an adventure."</p>
+        <p>Lesotho, officially the Kingdom of Lesotho, is a landlocked country nestled entirely within South Africa. Known as the "Kingdom in the Sky," it is the only nation on Earth where all land sits above 1,000 metres above sea level.</p>
+        <p>From the snow-dusted peaks of the Maluti and Drakensberg mountains to the flowing rivers and vibrant Basotho culture, Lesotho offers a travel experience unlike any other on the continent.</p>
+        <ul class="features-list">
+          <li>Unique highland landscape and breathtaking scenery</li>
+          <li>Rich Basotho culture, traditions, and heritage</li>
+          <li>World-class hiking, skiing, and adventure sports</li>
+          <li>Warm and welcoming local communities</li>
+          <li>Safe destination with authentic African experiences</li>
+        </ul>
+        <a href="attractions.html" class="btn btn-green">Explore the Kingdom</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Why Visit Lesotho?</h2>
+      <div class="divider"></div>
+      <p>From rugged mountain terrain to colourful cultural festivals — Lesotho has something for every traveller.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="highlight-card">
+        <img src="7.jpg" alt="Mountain Adventures in Lesotho" class="highlight-card-img" style="object-fit:cover;">
+        <div class="highlight-card-body">
+          <h3> Mountain Adventures</h3>
+          <p>Trek through the Maluti Mountains, ski at Afriski Mountain Resort, or go pony trekking through remote highland villages.</p>
+          <a href="tips.html" class="btn btn-green" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Discover More</a>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <img src="3.jpg" alt="Basotho Culture" class="highlight-card-img" style="object-fit:cover;">
+        <div class="highlight-card-body">
+          <h3> Living Culture</h3>
+          <p>Witness the iconic Basotho blanket tradition, visit ancient rock art sites, and experience traditional village life firsthand.</p>
+          <a href="attractions.html" class="btn btn-green" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Discover More</a>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <img src="8.jpg" alt="Natural Wonders of Lesotho" class="highlight-card-img" style="object-fit:cover;">
+        <div class="highlight-card-body">
+          <h3> Natural Wonders</h3>
+          <p>Explore Maletsunyane Falls, one of Africa's highest single-drop waterfalls and vast wilderness parks.</p>
+          <a href="attractions.html" class="btn btn-green" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Discover More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container" style="position:relative;">
+    <h2>Start Your Lesotho Journey Today</h2>
+    <p>Whether you're a nature lover, culture enthusiast, or adrenaline seeker, Lesotho's mountains are calling you home.</p>
+    <div class="cta-links">
+      <a href="tips.html" class="btn btn-primary">Plan Your Trip</a>
+      <a href="blog.html" class="btn btn-primary">Read Stories</a>
+      <a href="gallery.html" class="btn btn-primary">View Gallery</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">Discover<span>Lesotho</span></div>
+      <p>Your ultimate guide to exploring the Kingdom in the Sky. Where mountains meet culture and adventure awaits at every turn.</p>
+      <div class="social-links">
+        <a href="gallery.html#social" class="social-link">f</a>
+        <a href="gallery.html#social" class="social-link">ig</a>
+        <a href="gallery.html#social" class="social-link">tw</a>
+        <a href="gallery.html#social" class="social-link">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Travel Stories</a></li>
+        <li><a href="attractions.html">Top Attractions</a></li>
+        <li><a href="gallery.html">Gallery & Contact</a></li>
+        <li><a href="tips.html">plan your trip</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Top Destinations</h4>
+      <ul>
+        <li><a href="attractions.html">Maletsunyane Falls</a></li>
+        <li><a href="attractions.html">Afriski Mountain Resort</a></li>
+        <li><a href="attractions.html">Thaba Bosiu</a></li>
+        <li><a href="attractions.html">Sehlabathebe National Park</a></li>
+        <li><a href="attractions.html">Katse Dam</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <ul>
+        <li> Maseru, Lesotho</li>
+        <li> info@discoverlesotho.ls</li>
+        <li> +266 57838590</li>
+        <li> Mon–Fri: 8am – 5pm</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 DiscoverLesotho.Web Design for Business — Limkokwing University of Creative Technology, Lesotho.</p>
+  </div>
+</footer>
+
+</body>
+</html>

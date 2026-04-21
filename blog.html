@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Stories — DiscoverLesotho</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+    }
+
+    .featured-post {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .featured-post-img {
+      width: 100%;
+      height: 380px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, var(--green-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.75);
+      font-style: italic;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-post-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+
+    .featured-label {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .featured-post-body {
+      padding: 2rem;
+    }
+
+    .post-meta {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #999;
+      flex-wrap: wrap;
+    }
+
+    .post-meta span { display: flex; align-items: center; gap: 0.35rem; }
+
+    .featured-post-body h2 {
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--green);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 2px;
+      transition: all var(--transition);
+    }
+
+    .read-more:hover {
+      color: var(--gold);
+    }
+
+    .blog-post {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      margin-bottom: 1.5rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .blog-post:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .blog-post-img {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem;
+      min-height: 180px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-post-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-post-body {
+      padding: 1.5rem;
+    }
+
+    .blog-post-body h3 {
+      color: var(--green-dark);
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* SIDEBAR */
+    .sidebar-widget {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-widget h4 {
+      font-family: var(--font-heading);
+      color: var(--green-dark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .category-list {
+      list-style: none;
+    }
+
+    .category-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--light-gray);
+      font-size: 0.9rem;
+    }
+
+    .category-list li:last-child { border-bottom: none; }
+
+    .category-list a {
+      color: var(--gray);
+      transition: color var(--transition);
+    }
+
+    .category-list a:hover { color: var(--green); }
+
+    .category-count {
+      background: var(--green);
+      color: var(--white);
+      font-size: 0.75rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 50px;
+    }
+
+    .recent-post-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .recent-post-item:last-child { border-bottom: none; }
+
+    .recent-thumb {
+      width: 60px;
+      height: 55px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      flex-shrink: 0;
+    }
+
+    .recent-post-info h5 {
+      font-size: 0.88rem;
+      color: var(--green-dark);
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .recent-post-info small {
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+
+    .highlight-quote {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .highlight-quote p {
+      color: rgba(255,255,255,0.9);
+      font-style: italic;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    .highlight-quote footer {
+      background: transparent;
+      padding: 0.5rem 0 0;
+      border: none;
+      color: var(--gold-light);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <div class="nav-logo">Discover<span>Lesotho</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html" class="active">Travel Stories</a></li>
+      <li><a href="attractions.html">Top Attractions</a></li>
+      <li><a href="tips.html">Travel Tips</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> <span>›</span> <span>Travel Stories</span>
+    </div>
+    <h1>Travel Stories</h1>
+    <p>Real adventures, cultural encounters, and unforgettable moments from the Kingdom in the Sky.</p>
+  </div>
+</section>
+
+<!--BLOG CONTENt -->
+<section class="section">
+  <div class="container">
+    <div class="blog-grid">
+
+      <!-- MAIN POSTS -->
+      <main>
+
+        <article class="featured-post">
+          <div class="featured-post-img">
+            <img src="11.jpg" alt="Pony Trek through Maluti Mountains">
+            <span class="featured-label">⭐ Featured Story</span>
+          </div>
+          <div class="featured-post-body">
+            <div class="post-meta">
+              <span> March 2025</span>
+              <span>By: Thato Mokoena</span>
+              <span> Adventure Tourism</span>
+              <span>8 min read</span>
+            </div>
+            <span class="card-tag">Adventure</span>
+            <h2>Five Days on Horseback: My Unforgettable Pony Trek Through the Maluti Mountains</h2>
+            <p>When my guide handed me the reins of a sturdy Basotho pony at dawn in Semonkong, I had no idea that the next five days would completely reshape how I saw Southern Africa. The Basotho pony, a legendary breed born from the harsh highland climate is the original SUV of Lesotho, capable of navigating sheer cliff paths and icy river crossings with confident ease.</p>
+            <p>We wound our way through isolated mountain villages where children ran out to greet us with wide smiles and curious eyes. Each night we slept in rondavels circular thatched huts, listening to the wind howl across the mountain plateau. Our host families served <em>papa</em> and <em>moroho</em>, simple and nourishing food, always accompanied by steaming tea and generous laughter.</p>
+            <p>The highlight came on day three when we crested a ridge above 3,000 metres and the entire Lesotho highlands spread out before us a sea of golden grass interrupted only by ancient volcanic rock formations and the distant silver ribbon of the Senqu River. I understood then why travellers who discover Lesotho feel that the rest of the world has been keeping a tremendous secret.</p>
+            <a href="#" class="read-more">Continue Reading →</a>
+          </div>
+        </article>
+
+        <!-- POST 2 -->
+        <article class="blog-post">
+          <div class="blog-post-img">
+            <img src="5.jpg" alt="Maletsunyane Falls">
+          </div>
+          <div class="blog-post-body">
+            <div class="post-meta">
+              <span>January 2025</span>
+              <span>By: Palesa Ntlhakana</span>
+            </div>
+            <span class="card-tag gold">Nature</span>
+            <h3>Standing at the Edge of Maletsunyane Falls</h3>
+            <p>At 192 metres, Maletsunyane Falls is one of Africa's most dramatic single-drop waterfalls. I hiked to the gorge in the early morning while mist still clung to the canyon walls. The thundering roar grows before you see anything and then suddenly, there it is. A white cascade plunging into a deep, mist-filled gorge surrounded by basalt cliffs. For daredevils, this is also where you can attempt one of the world's longest single-drop abseils. I chose to watch, photograph, and sip my flask of tea in stunned silence.</p>
+            <a href="#" class="read-more">Read Full Story →</a>
+          </div>
+        </article>
+
+        <!-- POST 3 -->
+        <article class="blog-post">
+          <div class="blog-post-img">
+            <img src="blanket.jpg" alt="Basotho Culture and Blankets">
+          </div>
+          <div class="blog-post-body">
+            <div class="post-meta">
+              <span> November 2024</span>
+              <span>By: Mpho Lekhanya</span>
+            </div>
+            <span class="card-tag blue">Culture</span>
+            <h3>The Basotho Blanket: A Living Tradition Wrapped in History</h3>
+            <p>Few items in African culture carry as much meaning as the Basotho blanket — <em>seanamarena</em>. Originally traded by European missionaries, these heavy wool blankets were adopted by King Moshoeshoe I and became the national symbol of identity and pride. Today, every blanket pattern tells a story: coronations, harvests, peace, and royal lineage. I visited a cooperative in Maseru where weavers demonstrated how each design is deliberate, cultural, and personal. Wearing a blanket isn't fashion — it's a declaration of belonging.</p>
+            <a href="#" class="read-more">Read Full Story →</a>
+          </div>
+        </article>
+
+        <!-- POST 4 -->
+        <article class="blog-post">
+          <div class="blog-post-img">
+            <img src="10.jpg" alt="Afriski Mountain Resort" width="300" height="400">
+          </div>
+          <div class="blog-post-body">
+            <div class="post-meta">
+              <span> July 2024</span>
+              <span>By: Limpho Tau</span>
+            </div>
+            <span class="card-tag">Ski &amp; Snow</span>
+            <h3>Skiing in Africa? Yes, at Afriski Mountain Resort</h3>
+            <p>Most people laugh when I tell them I went skiing in Africa. Afriski Mountain Resort sits at 3,222 metres above sea level in the Maluti Mountains and offers the continent's best skiing outside of South Africa's own slopes. I went in July — Lesotho's winter — and found fresh snow, quad lifts, cosy mountain lodges, and an aprés-ski scene that felt wonderfully surreal. Whether you're a beginner or an intermediate skier, this is one of the most surprising experiences the continent has to offer.</p>
+            <a href="#" class="read-more">Read Full Story →</a>
+          </div>
+        </article>
+
+      </main>
+
+      <!-- SIDEBAR -->
+      <aside>
+
+        <div class="sidebar-widget">
+          <h4>Categories</h4>
+          <ul class="category-list">
+            <li><a href="#">Adventure Tourism</a><span class="category-count">5</span></li>
+            <li><a href="#">Culture &amp; Heritage</a><span class="category-count">4</span></li>
+            <li><a href="#">Nature &amp; Wildlife</a><span class="category-count">3</span></li>
+            <li><a href="#">Food &amp; Cuisine</a><span class="category-count">2</span></li>
+            <li><a href="#">Ski &amp; Snow</a><span class="category-count">2</span></li>
+            <li><a href="#">Village Life</a><span class="category-count">3</span></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-widget">
+          <h4>Recent Posts</h4>
+          <div class="recent-post-item">
+            <div class="recent-thumb"></div>
+            <div class="recent-post-info">
+              <h5>Sunrise at Thaba Bosiu</h5>
+              <small>February 2025</small>
+            </div>
+          </div>
+          <div class="recent-post-item">
+            <div class="recent-thumb"></div>
+            <div class="recent-post-info">
+              <h5>Katse Dam — Engineering Marvel</h5>
+              <small>December 2024</small>
+            </div>
+          </div>
+          <div class="recent-post-item">
+            <div class="recent-thumb"></div>
+            <div class="recent-post-info">
+              <h5>Moshoeshoe I: King of the Mountains</h5>
+              <small>October 2024</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-widget highlight-quote">
+          <p>"Lesotho is not just a destination — it is an experience that lives in your heart long after you leave the mountains."</p>
+          <footer>— Basotho Tourism Board</footer>
+        </div>
+
+        <div class="sidebar-widget">
+          <h4>Plan Your Visit</h4>
+          <p style="font-size:0.9rem;">Ready to create your own Lesotho story?</p>
+          <a href="travel-tips.html" class="btn btn-green" style="display:block; text-align:center; margin-top:0.5rem;">View Travel Tips</a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!--FOOTER-->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">Discover<span>Lesotho</span></div>
+      <p>Your ultimate guide to exploring the Kingdom in the Sky — where mountains meet culture and adventure awaits.</p>
+      <div class="social-links">
+        <a href="gallery.html#social" class="social-link">f</a>
+        <a href="gallery.html#social" class="social-link">ig</a>
+        <a href="gallery.html#social" class="social-link">tw</a>
+        <a href="gallery.html#social" class="social-link">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Travel Stories</a></li>
+        <li><a href="attractions.html">Top Attractions</a></li>
+        <li><a href="tips.html">Travel Tips</a></li>
+        <li><a href="gallery.html">Gallery &amp; Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="attractions.html">Natural Wonders</a></li>
+        <li><a href="attractions.html">Cultural Sites</a></li>
+        <li><a href="attractions.html">Adventure Activities</a></li>
+        <li><a href="travel-tips.html">Getting There</a></li>
+        <li><a href="gallery.html">Photo Gallery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <ul>
+        <li> Maseru, Lesotho</li>
+        <li>info@discoverlesotho.ls</li>
+        <li> +266 57838590</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 DiscoverLesotho. Web Design for Business — Limkokwing University of Creative Technology, Lesotho.</p>
+  </div>
+</footer>
+
+</body>
+</html>

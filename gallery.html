@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery &amp; Contact — DiscoverLesotho</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 220px;
+      gap: 0.75rem;
+    }
+
+    .gallery-item {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+      z-index: 2;
+    }
+
+    .gallery-item.wide   { grid-column: span 2; }
+    .gallery-item.tall   { grid-row: span 2; }
+    .gallery-item.large  { grid-column: span 2; grid-row: span 2; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.82rem;
+      font-style: italic;
+      text-align: center;
+      padding: 1rem;
+      gap: 0.4rem;
+    }
+
+    .gallery-placeholder span { font-size: 2rem; }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(27, 67, 50, 0.75);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-overlay p {
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .gallery-overlay small {
+      color: var(--gold-light);
+      display: block;
+      font-size: 0.78rem;
+    }
+
+    .social-section {
+      background: var(--green-dark);
+      padding: 60px 2rem;
+      color: var(--white);
+    }
+
+    .social-section h2 {
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .social-section > p {
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .social-cards {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .social-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      text-align: center;
+      flex: 1 1 160px;
+      max-width: 200px;
+      transition: all var(--transition);
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .social-card:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    .social-card .sc-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .social-card h4 {
+      font-family: var(--font-heading);
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .social-card p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      margin: 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      color: var(--green-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail h5 {
+      color: var(--green-dark);
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-detail p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* CONTACT FORM */
+    .contact-form {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .contact-form h3 {
+      color: var(--green-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: var(--white);
+      transition: border-color var(--transition);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--green);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .gallery-item.large { grid-column: span 1; grid-row: span 1; }
+      .gallery-item.wide  { grid-column: span 2; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.wide, .gallery-item.tall, .gallery-item.large {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!--NAVIGATION-->
+<nav>
+  <div class="nav-container">
+    <div class="nav-logo">Discover<span>Lesotho</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="blog.html">Travel Stories</a></li>
+      <li><a href="attractions.html">Top Attractions</a></li>
+      <li><a href="tips.html">Travel Tips</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!--HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> <span>›</span> <span>Gallery &amp; Social Media</span>
+    </div>
+    <h1>Gallery &amp; Social Media</h1>
+    <p>A visual journey through the landscapes, culture, and hidden treasures of the Kingdom in the Sky.</p>
+  </div>
+</section>
+
+<!--PHOTO GALLERY-->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Photo Gallery</h2>
+      <div class="divider"></div>
+      <p>A glimpse into the breathtaking landscapes, culture, and adventures awaiting you in Lesotho.</p>
+    </div>
+
+    <div class="gallery-grid">
+
+      <!-- Large feature image -->
+      <div class="gallery-item large">
+        <img src="6.jpg" alt="Lesotho Highlands">
+        <div class="gallery-overlay">
+          <div><p>Lesotho Highlands</p><small> Central Highlands</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="5.jpg" alt="Maletsunyane Falls">
+        <div class="gallery-overlay">
+          <div><p>Maletsunyane Falls</p><small> Semonkong</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="8.jpg" alt="Thaba Bosiu">
+        <div class="gallery-overlay">
+          <div><p>Thaba Bosiu Heritage Site</p><small>Maseru District</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item wide">
+        <img src="10.jpg" alt="Skiing at Afriski Mountain Resort">
+        <div class="gallery-overlay">
+          <div><p>Afriski Mountain Resort</p><small> Butha-Buthe — 3,222m</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item tall">
+        <img src="11.jpg" alt="Basotho Pony Trekking">
+        <div class="gallery-overlay">
+          <div><p>Basotho Pony Trekking</p><small> Malealea</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="morija.jpg" alt="Morija Arts & Culture Festival">
+        <div class="gallery-overlay">
+          <div><p>Morija Arts &amp; Culture Festival</p><small> Morija</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1.jpg" alt="Ts'ehlanyane National Park">
+        <div class="gallery-overlay">
+          <div><p>Ts'ehlanyane National Park</p><small> Butha-Buthe</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="7.jpg" alt="Katse Dam">
+        <div class="gallery-overlay">
+          <div><p>Katse Dam</p><small>Thaba-Tseka District</small></div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="6.jpg" alt="Highland Sunset">
+        <div class="gallery-overlay">
+          <div><p>Highland Sunset</p><small>Maluti Mountains</small></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!--SOCIAL MEDIA-->
+<section id="social" class="social-section">
+  <div class="container">
+    <h2>Follow Our Journey</h2>
+    <p>Stay connected and discover Lesotho through our eyes every day.</p>
+
+    <div class="social-cards">
+      <div class="facebook">
+        <h4>Facebook</h4>
+        <p>@DiscoverLesotho</p>
+      </div>
+      <div class="instagram">
+        <h4>Instagram</h4>
+        <p>@discover_lesotho</p>
+      </div>
+      <div class="x">
+        <h4>X</h4>
+        <p>@DiscoverLesotho</p>
+      </div>
+      <div class="youtube">
+        <h4>YouTube</h4>
+        <p>Discover Lesotho</p>
+      </div>
+      <div class="tiktok">
+        <h4>TikTok</h4>
+        <p>@discoverlesotho</p>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top:2rem; color:rgba(255,255,255,0.6); font-size:0.9rem;">
+      Use <strong style="color:var(--gold-light)">#DiscoverLesotho</strong> to share your adventures with us!
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT-->
+<section class="section section-alt" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <h2>Get In Touch</h2>
+      <div class="divider"></div>
+      <p>Have questions about visiting Lesotho? We'd love to hear from you and help plan your perfect trip.</p>
+    </div>
+
+    <div class="contact-grid">
+
+      <!-- CONTACT INFO -->
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+
+        <div class="contact-item">
+          <div class="contact-detail">
+            <h5>Address</h5>
+            <p>Tourism Office, Kingsway Road, Maseru 100, Kingdom of Lesotho</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-detail">
+            <h5>Phone</h5>
+            <p>+266 57838590 (Office Hours)</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-detail">
+            <h5>Email</h5>
+            <p>info@discoverlesotho.ls</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-detail">
+            <h5>Office Hours</h5>
+            <p>Monday – Friday: 8:00am – 5:00pm<br>Saturday: 9:00am – 1:00pm</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-detail">
+            <h5>Website</h5>
+            <p>www.discoverlesotho.ls</p>
+          </div>
+        </div>
+
+      <!-- CONTACT FORM -->
+      <div class="contact-form">
+        <h3>Send Us a Message</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Moratuoa *</label>
+            <input type="text" id="fname" name="fname" placeholder="Your first name" />
+          </div>
+          <div class="form-group">
+            <label for="lname">Shoapho</label>
+            <input type="text" id="lname" name="lname" placeholder="Your last name" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">moratuoashoapho10@gmail.com *</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject">
+            <option value="">Select a topic...</option>
+            <option>Trip Planning Enquiry</option>
+            <option>Accommodation Booking</option>
+            <option>Adventure Activities</option>
+            <option>Cultural Tours</option>
+            <option>Photography / Media</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" placeholder="Tell us about your travel plans, questions, or how we can help..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-green" style="width:100%;">
+          Send Message
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!--FOOTER-->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">Discover<span>Lesotho</span></div>
+      <p>Your ultimate guide to exploring the Kingdom in the Sky — where mountains meet culture and adventure awaits.</p>
+      <div class="social-links">
+        <a href="#social" class="social-link">f</a>
+        <a href="#social" class="social-link">ig</a>
+        <a href="#social" class="social-link">tw</a>
+        <a href="#social" class="social-link">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Travel Stories</a></li>
+        <li><a href="attractions.html">Top Attractions</a></li>
+        <li><a href="tips.html">Travel Tips</a></li>
+        <li><a href="gallery.html">Gallery &amp; Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Gallery Themes</h4>
+      <ul>
+        <li><a href="#">Highland Landscapes</a></li>
+        <li><a href="#">Waterfalls</a></li>
+        <li><a href="#">Cultural Life</a></li>
+        <li><a href="#">Adventure Sports</a></li>
+        <li><a href="#">Wildlife</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <ul>
+        <li> Maseru, Lesotho</li>
+        <li> info@discoverlesotho.ls</li>
+        <li>+266 57838590</li>
+        <li>#DiscoverLesotho</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 DiscoverLesotho. Web Design for Business — Limkokwing University of Creative Technology, Lesotho.</p>
+  </div>
+</footer>
+
+</body>
+</html>
